@@ -210,10 +210,10 @@ void merge(unsigned long *a, unsigned int left, unsigned int mid, unsigned int r
     unsigned long leftArr[n1], rightArr[n2];
 
     for(unsigned long i=1;i<n1;i++){
-        leftArr[i]=a[left+i-1];
+        leftArr[i]=a[left+i];
     }
     for(unsigned long x=1; x<n2;x++){
-        rightArr[x]=a[mid+x];
+        rightArr[x]=a[mid+x+1];
     }
     unsigned long y=0,z=0;
     unsigned long l=left;
