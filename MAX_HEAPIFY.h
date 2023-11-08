@@ -9,9 +9,10 @@ struct Heap{
 void MAX_HEAPIFY(struct Heap *h, unsigned int i){
     unsigned int left, right, largest;
 
-    //Note function definitions LEFT and RIGHT need to be replaced
-    left=LEFT(i);
-    right=RIGHT(i);
+   
+    largest=i;
+    left=2*i;
+    right=2*i+1;
 
     if(left<=h->heaspsize && h->arr[left]>h->arr[i]){
         largest = left;
@@ -29,6 +30,5 @@ void MAX_HEAPIFY(struct Heap *h, unsigned int i){
         h->arr[i]=h->arr[largest];
         h->arr[largest]=temp;
         MAX_HEAPIFY(h->largest);
-        //exchange arr[i] with arr[largest]
     }
 }
