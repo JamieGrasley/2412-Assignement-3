@@ -121,3 +121,71 @@ else{
 }
     return 0;
 }
+
+void BUILD_MAX_HEAP(struct Heap *h){
+
+   h->heaspsize=h->length;
+   for(unsigned int i=h->length/2; i>=1;i--){
+    MAX_HEAPIFY(h,i);
+   }
+}
+
+void insertion_sort(unsigned long *arr, unsigned int length){
+    unsigned int temp;
+    int check;
+
+    for (unsigned int x=1; x<length; x++){
+            temp=arr[x];
+            check=x-1;
+            while (check>0 && arr[check]>temp){
+                arr[check+1]=arr[check];
+                check=check-1;
+                arr[check+1]=temp;
+            }
+    }
+}
+
+void heap_sort(struct Heap *h){
+    unsigned int length= h->heaspsize;
+
+    for(unsigned int i=length;i>0;i--){
+        MAX_HEAPIFY(h,i);
+    }
+    for(unsigned int i=length-1;i>1;i--){
+        unsigned int temp;
+        temp=h->arr[i];
+        h->arr[i]=h->arr[1];
+        h->arr[1]=temp;
+        MAX_HEAPIFY(h,i);
+    }
+
+    
+
+}
+
+void MAX_HEAPIFY(struct Heap *h, unsigned int i){
+    unsigned int left, right, largest;
+
+   
+    largest=i;
+    left=2*i;
+    right=2*i+1;
+
+    if(left<=h->heaspsize && h->arr[left]>h->arr[i]){
+        largest = left;
+    }
+    else{
+        largest=i;
+    }
+
+    if (right<=h->heaspsize && h->arr[right]>h->arr[largest]){
+        largest=right;
+    }
+    if(largest!=i){
+        unsigned int temp;
+        temp=h->arr[i];
+        h->arr[i]=h->arr[largest];
+        h->arr[largest]=temp;
+        MAX_HEAPIFY(h->largest);
+    }
+}
