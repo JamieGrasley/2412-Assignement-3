@@ -17,6 +17,7 @@ Use safe pointers*/
 #include "arrays.h"
 #define MAXHEAP 20;
 
+//array_size must be between 2^7 and 2^22
 
 int main(int argc, const char * argv[]) {
     // insert code here...
@@ -70,6 +71,12 @@ int main(int argc, const char * argv[]) {
     diffMerge_t=difftime(endMerge_t,startMerge_t);
 
     // write into a CSV; check the Excel for the structure of the coloumns
+
+    FILE *fpt;
+    fpt=fopen("Output.csv", "w+");
+    fprintf(fpt,"inputSize, f(inputSizei)=f(inputSizei-1)*4, runntime (Insertionsort), runntime (MergeSort), runntime (Heapsort)"\n);
+    fprintf(fpt,"%u, holder, %f, %f, %f", array_size, holder, diffInsert_t, diffMerge_t, diffHeap_t)\n;
+    fclose (fpt);
     
     printf("\nArray[1 .. Heap.Length]: ");
     for(unsigned int i=1; i<=h->length; i++)
