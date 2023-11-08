@@ -16,7 +16,7 @@ Use safe pointers*/
 #include <stdio.h>
 #include <math.h>
 #include <time.h>
-#define MAXHEAP 20;
+#define MAXHEAP 20
 
 struct Heap{
     unsigned long *arr;
@@ -41,13 +41,15 @@ int main(int argc, const char * argv[]) {
 
     struct Heap *h;
     unsigned long *g, *f;
-    int n = MAXHEAP + 1;
-for (unsigned int array_size=128; array_size<4194304; array_size*2){
+    
+for (unsigned int array_size=128; array_size<4194304; array_size*=2){
     g = NULL; f = NULL; 
 
+    int n=MAXHEAP+1;
+
     h = (struct Heap *) malloc(sizeof(struct Heap));
-    f = (unsigned long*) malloc(  n  * sizeof(unsigned long));
-    g = (unsigned long*) malloc(  n  * sizeof(unsigned long));
+    f = (unsigned long*) malloc(n*sizeof(unsigned long));
+    g = (unsigned long*) malloc(n*sizeof(unsigned long));
     
     if( !f || !g || !h)
         exit(EXIT_FAILURE);
@@ -66,7 +68,7 @@ for (unsigned int array_size=128; array_size<4194304; array_size*2){
         f[i] = tmp; 
         g[i] = tmp;
         h->arr[i] = tmp;
-        printf("%d ", h->arr[i]);  // for debugging purposes
+        printf("%lu ", h->arr[i]);  // for debugging purposes
     }   //Ensure that all three arrays are equal (i.e., same size and content).
 
     time_t startHeap_t, endHeap_t, startInsert_t, endInsert_t, startMerge_t, endMerge_t;
@@ -82,7 +84,7 @@ for (unsigned int array_size=128; array_size<4194304; array_size*2){
     time(&endInsert_t);
 
     time(&startMerge_t);
-        merge_sort(f, 1, sizeof(f));
+        merge_sort(f, 1, n);
     time(&endMerge_t);
 
     diffHeap_t=difftime(endHeap_t,startHeap_t);
@@ -101,7 +103,7 @@ else{
     insertRuntime_t=insertRuntime_t*4;
     FILE *fpt;
     fpt=fopen("Output.csv", "a+");
-    fprintf(fpt,"%u, %f, %f, %f, %f\n", array_size, insertRuntime_t, diffInsert_t, diffMerge_t, diffHeap_t);
+    fprintf(fpt,"%u, %lu, %f, %f, %f\n", array_size, insertRuntime_t, diffInsert_t, diffMerge_t, diffHeap_t);
     fclose (fpt);
 }
 
@@ -109,7 +111,7 @@ else{
 
     printf("\nArray[1 .. Heap.Length]: ");
     for(unsigned int i=1; i<=h->length; i++)
-        printf("%d ", h->arr[i]);
+        printf("%lu ", h->arr[i]);
     printf("\n");
     
 
@@ -149,15 +151,15 @@ void insertion_sort(unsigned long *arr, unsigned int length){
 void heap_sort(struct Heap *h){
     unsigned int length= h->heapsize;
 
-    for(unsigned int i=length-1;i>0;i--){
+    for(unsigned int i=length;i>=1;i--){
         MAX_HEAPIFY(h,i);
     }
-    for(unsigned int i=length-1;i>1;i--){
+    for(unsigned int i=length;i>=1;i--){
         unsigned int temp;
         temp=h->arr[i];
         h->arr[i]=h->arr[1];
         h->arr[1]=temp;
-        MAX_HEAPIFY(h,i);
+        MAX_HEAPIFY(h,i-1);
     }
 
     
@@ -172,16 +174,20 @@ void MAX_HEAPIFY(struct Heap *h, unsigned int i){
     left=2*i;
     right=2*i+1;
 
-    if(left<=h->heapsize && h->arr[left]>h->arr[i]){
-        largest = left;
+    if (left <= h->heapsize && h->arr[left] > h->arr[largest]) {
+    largest = left-1;
+
     }
+
     else{
 
     }
 
-    if (right<=h->heapsize && h->arr[right]>h->arr[largest]){
-        largest=right;
+    if (right <= h->heapsize && h->arr[right] > h->arr[largest]) {
+    largest = right-1;
+
     }
+
     if(largest!=i){
         unsigned int temp;
         temp=h->arr[i];

@@ -47,7 +47,7 @@ void merge(unsigned long *a, unsigned int left, unsigned int mid, unsigned int r
             a[l]=rightArr[z];
             z++;
         }
-        l++
+        l++;
     }
     while(y<n1){
         a[l]=leftArr[y];
