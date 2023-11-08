@@ -12,5 +12,7 @@
 */
 
 void heap_sort(struct Heap *h){
+    unsigned int left, right, parent;
 
+    
 }
