@@ -89,7 +89,7 @@ for (unsigned int array_size=128; array_size<4194304; array_size*=2){
 
     diffHeap_t=difftime(endHeap_t,startHeap_t)/CLOCKS_PER_SEC;
     diffInsert_t=difftime(endInsert_t,startInsert_t)/CLOCKS_PER_SEC;    
-    diffMerge_t=difftime(endMerge_t,startMerge_t)\CLOCKS_PER_SEC;
+    diffMerge_t=difftime(endMerge_t,startMerge_t)/CLOCKS_PER_SEC;
 
     // write into a CSV; check the Excel for the structure of the coloumns
 if(array_size==128){
