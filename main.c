@@ -82,7 +82,7 @@ for (unsigned int array_size=128; array_size<4194304; array_size*2){
     time(&endInsert_t);
 
     time(&startMerge_t);
-        merge_sort(f);
+        merge_sort(f, 1, sizeof(f));
     time(&endMerge_t);
 
     diffHeap_t=difftime(endHeap_t,startHeap_t);
@@ -193,9 +193,9 @@ void MAX_HEAPIFY(struct Heap *h, unsigned int i){
 }
 
 void merge_sort(unsigned long *a, unsigned int left, unsigned int right){
-
+    unsigned int mid;
     if (left<right){
-            unsigned int mid=((left+right)/2);
+            mid=((left+right)/2);
             merge_sort(a,left,mid);
             merge_sort(a,mid+1,right);
     }
@@ -225,7 +225,7 @@ void merge(unsigned long *a, unsigned int left, unsigned int mid, unsigned int r
             a[l]=rightArr[z];
             z++;
         }
-        l++
+        l++;
     }
     while(y<n1){
         a[l]=leftArr[y];
