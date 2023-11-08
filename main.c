@@ -20,7 +20,7 @@ Use safe pointers*/
 
 struct Heap{
     unsigned long *arr;
-    unsigned int heaspsize, length;
+    unsigned int heapsize, length;
 };
 
 void MAX_HEAPIFY(struct Heap *h, unsigned int i);
@@ -126,7 +126,7 @@ else{
 
 void BUILD_MAX_HEAP(struct Heap *h){
 
-   h->heaspsize=h->length;
+   h->heapsize=h->length;
    for(unsigned int i=h->length/2; i>=1;i--){
     MAX_HEAPIFY(h,i);
    }
@@ -148,7 +148,7 @@ void insertion_sort(unsigned long *arr, unsigned int length){
 }
 
 void heap_sort(struct Heap *h){
-    unsigned int length= h->heaspsize;
+    unsigned int length= h->heapsize;
 
     for(unsigned int i=length;i>0;i--){
         MAX_HEAPIFY(h,i);
@@ -173,14 +173,14 @@ void MAX_HEAPIFY(struct Heap *h, unsigned int i){
     left=2*i;
     right=2*i+1;
 
-    if(left<=h->heaspsize && h->arr[left]>h->arr[i]){
+    if(left<=h->heapsize && h->arr[left]>h->arr[i]){
         largest = left;
     }
     else{
         largest=i;
     }
 
-    if (right<=h->heaspsize && h->arr[right]>h->arr[largest]){
+    if (right<=h->heapsize && h->arr[right]>h->arr[largest]){
         largest=right;
     }
     if(largest!=i){
