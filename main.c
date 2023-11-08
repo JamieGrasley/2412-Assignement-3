@@ -195,12 +195,11 @@ void MAX_HEAPIFY(struct Heap *h, unsigned int i){
 void merge_sort(unsigned long *a, unsigned int left, unsigned int right){
     unsigned int mid;
     if (left<right){
-            mid=((left+right)/2);
+            unsigned int mid=((left+right)/2);
             merge_sort(a,left,mid);
             merge_sort(a,mid+1,right);
+            merge(a,left,mid,right);
     }
-    //Merge
-    merge(a,left,mid,right);
 
 }
 
