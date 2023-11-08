@@ -100,8 +100,7 @@ if(array_size==128){
 else{
     insertRuntime_t=insertRuntime_t*4;
     FILE *fpt;
-    fpt=fopen("Output.csv", "w+");
-    fprintf(fpt,"inputSize, f(inputSizei)=f(inputSizei-1)*4, runntime (Insertionsort), runntime (MergeSort), runntime (Heapsort)\n");
+    fpt=fopen("Output.csv", "a+");
     fprintf(fpt,"%u, %f, %f, %f, %f\n", array_size, insertRuntime_t, diffInsert_t, diffMerge_t, diffHeap_t);
     fclose (fpt);
 }
@@ -177,7 +176,7 @@ void MAX_HEAPIFY(struct Heap *h, unsigned int i){
         largest = left;
     }
     else{
-        
+
     }
 
     if (right<=h->heapsize && h->arr[right]>h->arr[largest]){
