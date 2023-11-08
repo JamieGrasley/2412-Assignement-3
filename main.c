@@ -39,14 +39,15 @@ int main(int argc, const char * argv[]) {
     int n = MAXHEAP + 1;
 for (unsigned int array_size=128; array_size<4194304; array_size*2){
     g = NULL; f = NULL; 
+
     h = (struct Heap *) malloc(sizeof(struct Heap));
-    
     f = (unsigned long*) malloc(  n  * sizeof(unsigned long));
     g = (unsigned long*) malloc(  n  * sizeof(unsigned long));
     
     if( !f || !g || !h)
         exit(EXIT_FAILURE);
     h->length = MAXHEAP; // we will not use the first array element to avoid zero-based indexing and to use a 1-based indexing instead
+    
     h->arr = (long unsigned int*) malloc( n * sizeof(struct Heap));
     if(!h->arr)
         exit(EXIT_FAILURE);
@@ -84,7 +85,7 @@ for (unsigned int array_size=128; array_size<4194304; array_size*2){
     diffMerge_t=difftime(endMerge_t,startMerge_t);
 
     // write into a CSV; check the Excel for the structure of the coloumns
-if(array_size=128){
+if(array_size==128){
     FILE *fpt;
     fpt=fopen("Output.csv", "w+");
     fprintf(fpt,"inputSize, f(inputSizei)=f(inputSizei-1)*4, runntime (Insertionsort), runntime (MergeSort), runntime (Heapsort)\n");
@@ -110,6 +111,10 @@ else{
 
     if(h->arr) free(h->arr);
     if(h) free(h);
+
+    if(g) free(g);
+
+    if(f) free(f);
 }
     return 0;
 }
