@@ -24,9 +24,9 @@ void merge_sort(unsigned long *a, unsigned int left, unsigned int right){
 
 }
 
-merge(unsigned long *a, unsigned int left, unsigned int mid, unsigned int right);
+void merge(unsigned long *a, unsigned int left, unsigned int mid, unsigned int right);
 
-merge(unsigned long *a, unsigned int left, unsigned int mid, unsigned int right){
+void merge(unsigned long *a, unsigned int left, unsigned int mid, unsigned int right){
     unsigned long n1, n2, leftArr[n1], rightArr[n2];
 
     for(unsigned long i=1;i<n1;i++){
