@@ -150,7 +150,7 @@ void insertion_sort(unsigned long *arr, unsigned int length){
 void heap_sort(struct Heap *h){
     unsigned int length= h->heapsize;
 
-    for(unsigned int i=length;i>0;i--){
+    for(unsigned int i=length-1;i>0;i--){
         MAX_HEAPIFY(h,i);
     }
     for(unsigned int i=length-1;i>1;i--){
@@ -177,7 +177,7 @@ void MAX_HEAPIFY(struct Heap *h, unsigned int i){
         largest = left;
     }
     else{
-        largest=i;
+        
     }
 
     if (right<=h->heapsize && h->arr[right]>h->arr[largest]){
