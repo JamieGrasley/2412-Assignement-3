@@ -72,7 +72,7 @@ for (unsigned int array_size=128; array_size<4194304; array_size*2){
     time(&endHeap_t);
 
     time(&startInsert_t);
-        insertion_sort(g);
+        insertion_sort(g,h->length);
     time(&endInsert_t);
 
     time(&startMerge_t);
