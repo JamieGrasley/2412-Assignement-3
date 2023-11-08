@@ -75,21 +75,21 @@ for (unsigned int array_size=128; array_size<4194304; array_size*=2){
     double diffHeap_t, diffInsert_t, diffMerge_t;
 
 
-    time(&startHeap_t);
+    startHeap_t=clock();
         heap_sort(h);
-    time(&endHeap_t);
+    endHeap_t=clock();
 
-    time(&startInsert_t);
+    startInsert_t=clock();
         insertion_sort(g,h->length);
-    time(&endInsert_t);
+    endInsert_t=clock();
 
-    time(&startMerge_t);
+    startMerge_t=clock();
         merge_sort(f, 1, n);
-    time(&endMerge_t);
+    endMerge_t=clock();
 
-    diffHeap_t=difftime(endHeap_t,startHeap_t);
-    diffInsert_t=difftime(endInsert_t,startInsert_t);    
-    diffMerge_t=difftime(endMerge_t,startMerge_t);
+    diffHeap_t=difftime(endHeap_t,startHeap_t)/CLOCKS_PER_SEC;
+    diffInsert_t=difftime(endInsert_t,startInsert_t)/CLOCKS_PER_SEC;    
+    diffMerge_t=difftime(endMerge_t,startMerge_t)\CLOCKS_PER_SEC;
 
     // write into a CSV; check the Excel for the structure of the coloumns
 if(array_size==128){
