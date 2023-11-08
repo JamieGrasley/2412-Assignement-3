@@ -25,6 +25,7 @@ void BUILD_MAX_HEAP(struct Heap *h);
 void heap_sort(struct Heap *h);
 void insertion_sort(unsigned long *arr, unsigned int length);
 void merge_sort(unsigned long *a, unsigned int left, unsigned int right);
+void merge(unsigned long *a, unsigned int left, unsigned int mid, unsigned int right);//Added based on pseudo-code.
 
 
 
