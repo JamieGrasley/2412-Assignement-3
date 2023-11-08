@@ -48,17 +48,26 @@ int main(int argc, const char * argv[]) {
         h->arr[i] = tmp;
         printf("%d ", h->arr[i]);  // for debugging purposes
     }   
-    // start timer 
-        HEAPSORT(h);
-    // end time
 
-    // start timer
-        //INSERTIONSERT(g);
-    // end timer
+    time_t startHeap_t, endHeap_t, startInsert_t, endInsert_t, startMerge_t, endMerge_t;
+    double diffHeap_t, diffInsert_t, diffMerge_t;
 
-    // start timer
-        //MERGESORT(f);
-    // end timer
+
+    time(&startHeap_t);
+        heap_sort(h);
+    time(&endHeap_t);
+
+    time(&startInsert_t);
+        insertion_sort(g);
+    time(&endInsert_t);
+
+    time(&startMerge_t);
+        merge_sort(h);
+    time(&endMerge_t);
+
+    diffHeap_t=difftime(endHeap_t,startHeap_t);
+    diffInsert_t=difftime(endInsert_t,startInsert_t);    
+    diffMerge_t=difftime(endMerge_t,startMerge_t);
 
     // write into a CSV; check the Excel for the structure of the coloumns
     
