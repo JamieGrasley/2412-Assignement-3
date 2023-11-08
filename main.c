@@ -186,6 +186,6 @@ void MAX_HEAPIFY(struct Heap *h, unsigned int i){
         temp=h->arr[i];
         h->arr[i]=h->arr[largest];
         h->arr[largest]=temp;
-        MAX_HEAPIFY(h->largest);
+        MAX_HEAPIFY(h,largest);
     }
 }
