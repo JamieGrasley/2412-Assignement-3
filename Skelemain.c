@@ -2,9 +2,6 @@
 |    COMP-2412 Assignment 3    |
 | Jamie Grasley & Felix Ikokwu |
 \******************************/
-////////////////////////////
-//Final main function, please add to this and not skelemain
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 //Pseudocode for main.c file provided by professor
 

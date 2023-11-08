@@ -2,11 +2,18 @@
 |    COMP-2412 Assignment 3    |
 | Jamie Grasley & Felix Ikokwu |
 \******************************/
+struct Heap{
+    unsigned long *arr;
+    unsigned int heaspsize, length;
+};
+//struct Heap definition must be
+//Removed when reintegrated into main, here for admin only
+
 
 void BUILD_MAX_HEAP(struct Heap *h){
-    /* Pseudocode for the function based on lecture notes
-    /A.heap-size=A.length;
-    for i=[A.length/2] downto 1
-    MAX-HEAPIFY (A.i)
-    */
+
+   h->heaspsize=h->length;
+   for(unsigned int i=h->length/2; i>=1;i--){
+    MAX_HEAPIFY(h,i);
+   }
 }
