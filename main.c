@@ -61,7 +61,7 @@ for (unsigned int array_size=128; array_size<4194304; array_size*2){
         g[i] = tmp;
         h->arr[i] = tmp;
         printf("%d ", h->arr[i]);  // for debugging purposes
-    }   
+    }   //Ensure that all three arrays are equal (i.e., same size and content).
 
     time_t startHeap_t, endHeap_t, startInsert_t, endInsert_t, startMerge_t, endMerge_t;
     double diffHeap_t, diffInsert_t, diffMerge_t;
