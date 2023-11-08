@@ -6,10 +6,7 @@
 //Heap definition for reference
 //Remember heapsize is elements stored in arr, 
 //Length is how many elements can be in arr.
-/*  struct Heap{
-    unsigned long *arr;
-    unsigned int heaspsize, length;}
-*/
+
 struct Heap{
     unsigned long *arr;
     unsigned int heaspsize, length;
