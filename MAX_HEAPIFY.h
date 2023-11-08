@@ -23,7 +23,7 @@ void MAX_HEAPIFY(struct Heap *h, unsigned int i){
     if (right<=h->heaspsize && h->arr[right]>h->arr[largest]){
         largest=right;
     }
-    else{
+    if(largest!=i){
         unsigned int temp;
         temp=h->arr[i];
         h->arr[i]=h->arr[largest];
