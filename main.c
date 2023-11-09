@@ -16,6 +16,8 @@ Use safe pointers*/
 #include <stdio.h>
 #include <math.h>
 #include <time.h>
+#include<unistd.h>
+
 #define MAXHEAP 20
 
 struct Heap{
@@ -37,12 +39,12 @@ void merge(unsigned long *a, unsigned int left, unsigned int mid, unsigned int r
 
 int main(int argc, const char * argv[]) {
 
-    time_t insertRuntime_t=time(NULL);
+    double insertRuntime_t=(double)clock();
 
     struct Heap *h;
     unsigned long *g, *f;
     
-for (unsigned int array_size=128; array_size<4194304; array_size*=2){
+for (unsigned int array_size=128; array_size<=4194304; array_size*=2){
     g = NULL; f = NULL; 
 
     int n=MAXHEAP+1;
@@ -71,7 +73,7 @@ for (unsigned int array_size=128; array_size<4194304; array_size*=2){
         printf("%lu ", h->arr[i]);  // for debugging purposes
     }   //Ensure that all three arrays are equal (i.e., same size and content).
 
-    time_t startHeap_t, endHeap_t, startInsert_t, endInsert_t, startMerge_t, endMerge_t;
+    clock_t startHeap_t, endHeap_t, startInsert_t, endInsert_t, startMerge_t, endMerge_t;
     double diffHeap_t, diffInsert_t, diffMerge_t;
 
 
@@ -87,27 +89,31 @@ for (unsigned int array_size=128; array_size<4194304; array_size*=2){
         merge_sort(f, 1, n);
     endMerge_t=clock();
 
-    diffHeap_t=difftime(endHeap_t,startHeap_t)/CLOCKS_PER_SEC;
-    diffInsert_t=difftime(endInsert_t,startInsert_t)/CLOCKS_PER_SEC;    
-    diffMerge_t=difftime(endMerge_t,startMerge_t)/CLOCKS_PER_SEC;
+    diffHeap_t= (double)difftime(endHeap_t,startHeap_t)/(double)(CLOCKS_PER_SEC/1000);
+    diffInsert_t= (double)difftime(endInsert_t,startInsert_t)/(double)(CLOCKS_PER_SEC/1000);
+    diffMerge_t= (double)difftime(endMerge_t,startMerge_t)/(double)(CLOCKS_PER_SEC/1000);
 
     // write into a CSV; check the Excel for the structure of the coloumns
 if(array_size==128){
+    printf("\n%u, %4.3e, %4.3e, %4.3e, %4.3e\n", array_size, diffInsert_t, diffInsert_t, diffMerge_t, diffHeap_t);
     FILE *fpt;
     fpt=fopen("Output.csv", "w+");
     fprintf(fpt,"inputSize, f(inputSizei)=f(inputSizei-1)*4, runntime (Insertionsort), runntime (MergeSort), runntime (Heapsort)\n");
-    fprintf(fpt,"%u, %f, %f, %f, %f\n", array_size, diffInsert_t, diffInsert_t, diffMerge_t, diffHeap_t);
+    fprintf(fpt,"%u, %4.3e, %4.3e, %4.3e, %4.3e\n", array_size, diffInsert_t, diffInsert_t, diffMerge_t, diffHeap_t);
     fclose (fpt);
+    insertRuntime_t = diffInsert_t;
     }
 else{
+    printf("\n%u, %4.3e, %4.3e, %4.3e, %4.3e\n", array_size, insertRuntime_t, diffInsert_t, diffMerge_t, diffHeap_t);
     insertRuntime_t=insertRuntime_t*4;
     FILE *fpt;
     fpt=fopen("Output.csv", "a+");
-    fprintf(fpt,"%u, %lu, %f, %f, %f\n", array_size, insertRuntime_t, diffInsert_t, diffMerge_t, diffHeap_t);
+    fprintf(fpt,"%u, %4.3e, %4.3e, %4.3e, %4.3e\n", array_size, insertRuntime_t, diffInsert_t, diffMerge_t, diffHeap_t);
     fclose (fpt);
+    insertRuntime_t = (double)diffInsert_t;
 }
 
-    insertRuntime_t= diffInsert_t;
+    
 
     printf("\nArray[1 .. Heap.Length]: ");
     for(unsigned int i=1; i<=h->length; i++)
