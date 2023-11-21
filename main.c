@@ -21,7 +21,7 @@ Use safe pointers*/
 #include <time.h>
 #include<unistd.h>
 
-#define MAXHEAP 32768
+#define MAXHEAP 1048576
 
 struct Heap{
     unsigned long *arr;
