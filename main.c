@@ -4,7 +4,7 @@
 \******************************/
 ////////////////////////////
 //Final main function, please add to this and not skelemain
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+////////////////////////////
 
 //Pseudocode for main.c file provided by professor
 
@@ -18,7 +18,7 @@ Use safe pointers*/
 #include <time.h>
 #include<unistd.h>
 
-#define MAXHEAP 4194304
+#define MAXHEAP 32768
 
 struct Heap{
     unsigned long *arr;
@@ -44,7 +44,7 @@ int main(int argc, const char * argv[]) {
     struct Heap *h;
     unsigned long *g, *f;
     
-for (unsigned int array_size=128; array_size<=(4194304); array_size*=2){
+for (unsigned int array_size=128; array_size<=(MAXHEAP); array_size*=2){
     g = NULL; f = NULL; 
 
     int n=MAXHEAP+1;
@@ -92,26 +92,25 @@ for (unsigned int array_size=128; array_size<=(4194304); array_size*=2){
     diffHeap_t= (double)difftime(endHeap_t,startHeap_t)/(double)(CLOCKS_PER_SEC/1000);
     diffInsert_t= (double)difftime(endInsert_t,startInsert_t)/(double)(CLOCKS_PER_SEC/1000);
     diffMerge_t= (double)difftime(endMerge_t,startMerge_t)/(double)(CLOCKS_PER_SEC/1000);
-
+    double logIS=(double)log2(array_size);
     // write into a CSV; check the Excel for the structure of the coloumns
 if(array_size==128){
-    printf("\n%u, %4.3e, %4.3e, %4.3e, %4.3e\n", array_size, diffInsert_t, diffInsert_t, diffMerge_t, diffHeap_t);
+    printf("\n%u, %4.3e, %4.3e, %4.3e\n", array_size, diffInsert_t, diffMerge_t, diffHeap_t);
     FILE *fpt;
     fpt=fopen("Output.csv", "w+");
-    fprintf(fpt,"inputSize, f(inputSizei)=f(inputSizei-1)*4, runntime (Insertionsort), runntime (MergeSort), runntime (Heapsort)\n");
-    fprintf(fpt,"%u, %4.3e, %4.3e, %4.3e, %4.3e\n", array_size, diffInsert_t, diffInsert_t, diffMerge_t, diffHeap_t);
+    fprintf(fpt,"inputSize, log2(inputSize), runntime (Insertionsort), runntime (MergeSort), runntime (Heapsort)\n");
+    fprintf(fpt,"%u, %4.3e, %4.3e, %4.3e, %4.3e\n", array_size, logIS, diffInsert_t, diffMerge_t, diffHeap_t);
     fclose (fpt);
     insertRuntime_t = diffInsert_t;
     }
-else{
-    printf("\n%u, %4.3e, %4.3e, %4.3e, %4.3e\n", array_size, insertRuntime_t, diffInsert_t, diffMerge_t, diffHeap_t);
-    insertRuntime_t=insertRuntime_t*4;
+    else{
+    printf("\n%u, %4.3e, %4.3e, %4.3e\n", array_size, diffInsert_t, diffMerge_t, diffHeap_t);
     FILE *fpt;
     fpt=fopen("Output.csv", "a+");
-    fprintf(fpt,"%u, %4.3e, %4.3e, %4.3e, %4.3e\n", array_size, insertRuntime_t, diffInsert_t, diffMerge_t, diffHeap_t);
+    fprintf(fpt,"%u, %4.3e, %4.3e, %4.3e, %4.3e\n", array_size, logIS, diffInsert_t, diffMerge_t, diffHeap_t);
     fclose (fpt);
-    insertRuntime_t = (double)diffInsert_t;
-}
+    insertRuntime_t = diffInsert_t;
+    }
 
     
 
@@ -127,7 +126,8 @@ else{
     if(g) free(g);
 
     if(f) free(f);
-}
+
+    }
     return 0;
 }
 
