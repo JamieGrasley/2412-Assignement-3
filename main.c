@@ -2,6 +2,9 @@
 |    COMP-2412 Assignment 3    |
 | Jamie Grasley & Felix Ikokwu |
 \******************************/
+
+//Compiled information: This file has been compiled using clang in VSCode on macOS.
+
 ////////////////////////////
 //Final main function, please add to this and not skelemain
 ////////////////////////////
