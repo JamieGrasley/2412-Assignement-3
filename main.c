@@ -18,7 +18,7 @@ Use safe pointers*/
 #include <time.h>
 #include<unistd.h>
 
-#define MAXHEAP 20
+#define MAXHEAP 4194304
 
 struct Heap{
     unsigned long *arr;
@@ -44,7 +44,7 @@ int main(int argc, const char * argv[]) {
     struct Heap *h;
     unsigned long *g, *f;
     
-for (unsigned int array_size=128; array_size<=4194304; array_size*=2){
+for (unsigned int array_size=128; array_size<=(4194304); array_size*=2){
     g = NULL; f = NULL; 
 
     int n=MAXHEAP+1;
