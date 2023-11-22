@@ -3,23 +3,35 @@
 | Jamie Grasley & Felix Ikokwu |
 \******************************/
 
-//Compiled information: This file has been compiled using clang in VSCode on macOS.
+/*Compilation information:
+//Per the instructor, he uses:\\
+Apple LLVM-Clang version 14.0.3 (GNU 99)
+MacOS 13.4.1
+Targeting the x86_64 architecture
+Using either XCode or Visual Studio Code Version 1.73.1
 
-////////////////////////////
-//Final main function, please add to this and not skelemain
-////////////////////////////
+//For compiling we have used\\
+Apple clang version 15.0.0 (clang-1500.0.40.1) (GNU 99)
+MacOS 14.1
+Targeting: arm64-apple-darwin23.1.0 (x86 should have no issues compiling the source code though)
+Using VSCode 1.74.3
+*/
+
+//Final main function, please add to this and not skelemain (Internal comment artifact for my git repo please disregard)
+
 
 //Pseudocode for main.c file provided by professor
 
-/*It is using 1-based indexing, leaves the first element of the array unused (for simplicity of learning)
-Implement heapsort
-Use safe pointers*/
+/*Arrays are indexed at 1 instead of 0 per specifications.*/
+/*Per specifications heap is set to h, arrays are f and g.*/
+
+/*Per instructor MAXHEAP has been set to a reasonable value of 2^20. 2^22 is too large and the instructor 
+stated that values in that range are ok.*/
  
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
 #include <time.h>
-#include<unistd.h>
 
 #define MAXHEAP 1048576
 
@@ -59,7 +71,7 @@ for (unsigned int array_size=128; array_size<=(MAXHEAP); array_size*=2){
         exit(EXIT_FAILURE);
     h->length = array_size; // we will not use the first array element to avoid zero-based indexing and to use a 1-based indexing instead
     
-    h->arr = (long unsigned int*) malloc( n * sizeof(struct Heap));
+    h->arr = (long unsigned*) malloc( n * sizeof(struct Heap));
     if(!h->arr)
         exit(EXIT_FAILURE);
 
@@ -155,12 +167,11 @@ void insertion_sort(unsigned long *arr, unsigned int length){
 }
 
 void heap_sort(struct Heap *h){
-    unsigned int length= h->heapsize;
 
-    for(unsigned int i=length;i>=1;i--){
+    for(unsigned int i=h->heapsize;i>=1;i--){
         MAX_HEAPIFY(h,i);
     }
-    for(unsigned int i=length;i>=1;i--){
+    for(unsigned int i=h->heapsize;i>=1;i--){
         unsigned int temp;
         temp=h->arr[i];
         h->arr[i]=h->arr[1];
@@ -206,7 +217,7 @@ void MAX_HEAPIFY(struct Heap *h, unsigned int i){
 void merge_sort(unsigned long *a, unsigned int left, unsigned int right){
     unsigned int mid;
     if (left<right){
-            unsigned int mid=((left+right)/2);
+            mid=((left+right)/2);
             merge_sort(a,left,mid);
             merge_sort(a,mid+1,right);
             merge(a,left,mid,right);
@@ -218,7 +229,14 @@ void merge(unsigned long *a, unsigned int left, unsigned int mid, unsigned int r
     unsigned long n1, n2;
     n1=mid-left+1;
     n2=right-mid;
-    unsigned long leftArr[n1], rightArr[n2];
+
+    unsigned long *leftArr = malloc(n1 * sizeof(unsigned long));
+    unsigned long *rightArr = malloc(n2 * sizeof(unsigned long));
+
+    if( !leftArr || !rightArr)
+        exit(EXIT_FAILURE);
+
+   
 
     for(unsigned long i=1;i<n1;i++){
         leftArr[i]=a[left+i];
@@ -250,6 +268,8 @@ void merge(unsigned long *a, unsigned int left, unsigned int mid, unsigned int r
         z++;
         l++;
     }
+free(leftArr);
+free(rightArr);
 
 
 }
