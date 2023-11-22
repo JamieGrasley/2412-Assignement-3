@@ -61,7 +61,7 @@ int main(int argc, const char * argv[]) {
 for (unsigned int array_size=128; array_size<=(MAXHEAP); array_size*=2){
     g = NULL; f = NULL; 
 
-    //int n=MAXHEAP+1;
+    int n=MAXHEAP+1;
 
     h = (struct Heap *) malloc(sizeof(struct Heap));
     f = (unsigned long*) malloc(n*sizeof(unsigned long));
