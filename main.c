@@ -61,7 +61,7 @@ int main(int argc, const char * argv[]) {
 for (unsigned int array_size=128; array_size<=(MAXHEAP); array_size*=2){
     g = NULL; f = NULL; 
 
-    int n=MAXHEAP+1;
+    //int n=MAXHEAP+1;
 
     h = (struct Heap *) malloc(sizeof(struct Heap));
     f = (unsigned long*) malloc(n*sizeof(unsigned long));
@@ -100,7 +100,7 @@ for (unsigned int array_size=128; array_size<=(MAXHEAP); array_size*=2){
     endInsert_t=clock();
 
     startMerge_t=clock();
-        merge_sort(f, 1, n);
+        merge_sort(f, 1, h->length);
     endMerge_t=clock();
 
     diffHeap_t= (double)difftime(endHeap_t,startHeap_t)/(double)(CLOCKS_PER_SEC/1000);
@@ -167,16 +167,14 @@ void insertion_sort(unsigned long *arr, unsigned int length){
 }
 
 void heap_sort(struct Heap *h){
-
-    for(unsigned int i=h->heapsize;i>=1;i--){
-        MAX_HEAPIFY(h,i);
-    }
-    for(unsigned int i=h->heapsize;i>=1;i--){
+    BUILD_MAX_HEAP(h);
+    for(unsigned int i=h->length;i>=1;i--){
         unsigned int temp;
         temp=h->arr[i];
         h->arr[i]=h->arr[1];
         h->arr[1]=temp;
-        MAX_HEAPIFY(h,i-1);
+        h->heapsize=h->heapsize-1;
+        MAX_HEAPIFY(h,i);
     }
 
     
@@ -186,7 +184,6 @@ void heap_sort(struct Heap *h){
 void MAX_HEAPIFY(struct Heap *h, unsigned int i){
     unsigned int left, right, largest;
 
-   
     largest=i;
     left=2*i;
     right=2*i+1;
@@ -197,7 +194,7 @@ void MAX_HEAPIFY(struct Heap *h, unsigned int i){
     }
 
     else{
-
+        largest=i;
     }
 
     if (right <= h->heapsize && h->arr[right] > h->arr[largest]) {
